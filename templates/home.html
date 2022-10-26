@@ -18,11 +18,17 @@
 <body>
 <div>
     <form id="send-push__form">
-        <h3 class="header">Send a push notification</h3>
+        <h3 class="header">Отправить уведомление выбранному пользователю</h3>
         <p class="error"></p>
-        <input type="text" name="head" placeholder="Header: Your favorite airline 😍">
-        <textarea name="body" id="" cols="30" rows="10" placeholder="Body: Your flight has been cancelled 😱😱😱"></textarea>
-        <button>Send Me</button>
+        <select>
+            <option selected disabled="true">-- Выбрать пользователя --</option>
+            {% for result in User %}
+            <option value='{{result.id}}'>{{ result.username }}</option>
+            {% endfor %}
+        </select>
+        <input type="text" name="head" placeholder="Введите заголовок">
+        <textarea name="body" id="" cols="30" rows="10" placeholder="Введите основной текст"></textarea>
+        <button>Отправить</button>
     </form>
 </div>
 <script src="{% static '/js/registerSw.js' %}"></script>

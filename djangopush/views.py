@@ -10,10 +10,11 @@ import json
 
 @require_GET
 def home(request):
+    displayusers = User.objects.all()
     webpush_settings = getattr(settings, 'WEBPUSH_SETTINGS', {})
     vapid_key = webpush_settings.get('VAPID_PUBLIC_KEY')
     user = request.user
-    return render(request, 'home.html', {user: user, 'vapid_key': vapid_key})
+    return render(request, 'home.html', {user: user, 'vapid_key': vapid_key, 'User': displayusers})
 
 
 @require_POST
@@ -28,7 +29,7 @@ def send_push(request):
 
         user_id = data['id']
         user = get_object_or_404(User, pk=user_id)
-        payload = {'head': data['head'], 'body': data['body']}
+        payload = {'head': data['head'], 'body': data['body'], 'url': 'http://127.0.0.1:8000/'}
         send_user_notification(user=user, payload=payload, ttl=1000)
 
         return JsonResponse(status=200, data={"message": "Web push successful"})

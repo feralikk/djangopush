@@ -3,15 +3,18 @@ const errorMsg = document.querySelector('.error');
 
 pushForm.addEventListener('submit', async function (e) {
     e.preventDefault();
-    const input = this[0];
-    const textarea = this[1];
-    const button = this[2];
+
+    const option = this[0]
+    const input = this[1];
+    const textarea = this[2];
+    const button = this[3];
     errorMsg.innerText = '';
 
     const head = input.value;
     const body = textarea.value;
-    const meta = document.querySelector('meta[name="user_id"]');
-    const id = meta ? meta.content : null;
+    // const meta = document.querySelector('meta[name="user_id"]');
+    // const id = meta ? meta.content : null;
+    const id = option.value;
 
     if (head && body && id) {
         button.innerText = 'Sending...';
